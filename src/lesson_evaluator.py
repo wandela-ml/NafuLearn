@@ -1,23 +1,11 @@
-import os
-from dotenv import load_dotenv
-from google import genai
 from lesson_navigator import (
     load_lesson,
     get_learning_sections,
 )
 
+from gemini_service import generate_content
 
-#==============================================================
-#GEMINI SETUP
-#==============================================================
 
-load_dotenv()
-
-api_key = os.getenv("Gemini_api_key")
-if not api_key:
-    raise ValueError("Gemini_api_key not found in .env file")
-
-client = genai.Client(api_key=api_key)
 
 #=============================================================
 #BUILD EVALUATOR
@@ -27,85 +15,63 @@ def build_evaluation_prompt(section, question, student_answer):
     metadata = section["metadata"]
 
     section_title = metadata["section"]
-
     lesson_content = section["content"]
 
     prompt = f"""
-You are NafuLearn, a friendly educational tutor for
-Grade 10 Computer Studies students in Kenya.
+You are NafuLearn, a friendly Grade 10 Computer Studies tutor
+for students in Kenya.
 
-You are evaluating a student's answer based ONLY on the
-lesson content provided below.
+Evaluate the student's answer using ONLY the lesson content
+provided.
 
 LESSON SECTION:
 {section_title}
 
 LESSON CONTENT:
-------------------
 {lesson_content}
-------------------
-QUESTION:
 
+QUESTION:
 {question}
 
-
-STUDENT'S ANSWER:
-
+STUDENT ANSWER:
 {student_answer}
 
-Evaluate the student's understanding.
-
-Use exactly ONE of these classifications:
+Classify the answer as exactly ONE of:
 
 Correct
 Partially correct
 Needs improvement
 
-Evaluation rules:
+Use these rules:
 
-1. "Correct" means the student demonstrates a clear and
-   accurate understanding of the important idea being tested.
+- Correct: the student clearly and accurately understands
+  the important idea being tested.
+- Partially correct: the student understands part of the idea
+  but misses an important point or has a minor misunderstanding.
+- Needs improvement: the answer does not show sufficient
+  understanding.
+- Accept different wording when the meaning is correct.
+- Base the evaluation only on the lesson content.
+- Be encouraging and concise.
+- If improvement is needed, explain what the student should add
+  or understand.
+- Do not simply repeat the lesson.
 
-2. "Partially correct" means the student understands some
-   of the idea but misses an important point or has a minor
-   misunderstanding.
+Return exactly this format:
 
-3. "Needs improvement" means the answer does not demonstrate
-   sufficient understanding of the concept.
-
-4. Base your evaluation ONLY on the lesson content provided.
-
-5. Do not introduce unrelated information.
-
-6. Do not punish the student for using different wording
-   from the lesson.
-
-7. Be encouraging and educational.
-
-8. If the answer is incomplete, clearly explain what the
-   student should add or understand.
-
-9. Keep the feedback concise and suitable for a Grade 10
-   student.
-
-10. Do not simply repeat the lesson content.
-
-Use this exact format:
-
-RESULT: [Correct / Partially correct / Needs improvement]
+RESULT: [classification]
 
 FEEDBACK:
-[Explain briefly why the answer received this result.]
+[Brief explanation]
 
 WHAT TO IMPROVE:
-[If improvement is needed, explain what the student should
-understand or add. If the answer is fully correct, say
+[What the student should add or understand, or:
 "Nothing important is missing. Well done!"]
 
 ENCOURAGEMENT:
 [One short encouraging sentence.]
-
 """
+
     return prompt
 
 #=================================================
@@ -113,13 +79,13 @@ ENCOURAGEMENT:
 #=================================================
 
 def evaluate_answer(section, question, student_answer):
-    prompt = build_evaluation_prompt(section, question, student_answer)
-
-    response = client.models.generate_content(
-        model = "gemini-3.6-flash",
-        contents=prompt
+    prompt = build_evaluation_prompt(
+        section,
+        question,
+        student_answer
     )
-    return response.text
+
+    return generate_content(prompt)
 #----------------------
 #TEST THE EVALUATOR
 #----------------------

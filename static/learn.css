@@ -1,0 +1,720 @@
+/* =========================================================
+   NAFULEARN - LEARN MODE
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+    width: 100%;
+    background: #173b57;
+    color: white;
+    padding: 20px 40px;
+}
+
+.header-content {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+.learn-brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.learn-brand img {
+    display: block;
+    width: 120px;
+    height: auto;
+    max-height: 42px;
+    object-fit: contain;
+}
+
+.learn-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 6px;
+}
+
+.learn-nav-link {
+    color: white;
+    text-decoration: none;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.learn-nav-link:hover {
+    background: rgba(255, 255, 255, 0.10);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.learn-nav-link.active {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.learn-page-description {
+    max-width: 1000px;
+    margin: 8px auto 0;
+}
+
+.learn-page-description p {
+    font-size: 15px;
+    opacity: 0.9;
+}
+/* =========================================================
+   LEARN MODE NAVIGATION
+   ========================================================= */
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+
+.learn-brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+
+.learn-brand img {
+    display: block;
+    width: 120px;
+    height: auto;
+    max-height: 42px;
+    object-fit: contain;
+}
+
+
+.learn-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+
+.learn-nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.learn-nav-link:hover {
+    background: rgba(255, 255, 255, 0.10);
+    color: white;
+    transform: translateY(-1px);
+}
+
+
+.learn-nav-link.active {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+
+.learn-page-description {
+    max-width: 1000px;
+    margin: 8px auto 0;
+}
+
+
+.learn-page-description p {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.container {
+    max-width: 1000px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+
+/* =========================================================
+   LESSON SELECTION
+   ========================================================= */
+
+#lessonSelection {
+    background: white;
+    border-radius: 14px;
+    padding: 35px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+#lessonSelection h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#lessonSelection p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   LESSON SELECT
+   ========================================================= */
+
+#lessonSelect {
+    width: 100%;
+    max-width: 650px;
+    padding: 13px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: white;
+    color: #1f2937;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#lessonSelect:focus {
+    outline: none;
+    border-color: #173b57;
+    box-shadow: 0 0 0 3px rgba(23, 59, 87, 0.1);
+}
+
+
+/* =========================================================
+   START LESSON BUTTON
+   ========================================================= */
+
+#startLessonButton {
+    background: #173b57;
+    color: white;
+}
+
+#startLessonButton:hover {
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.learn-header {
+    margin-bottom: 25px;
+}
+
+.learn-header h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.progress {
+    font-size: 15px;
+    color: #64748b;
+}
+
+
+/* =========================================================
+   LESSON TITLE
+   ========================================================= */
+
+#lessonTitle {
+    margin-bottom: 20px;
+}
+
+#lessonTitle h2 {
+    font-size: 25px;
+    color: #1f2937;
+}
+
+
+/* =========================================================
+   SECTION COUNTER
+   ========================================================= */
+
+#sectionCounter {
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+#sectionTitle {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+#sectionTitle h2 {
+    font-size: 25px;
+}
+
+
+/* =========================================================
+   TEACHING CONTENT
+   ========================================================= */
+
+#teachingContent {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+#teachingContent h2 {
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+#explanation {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #374151;
+}
+
+
+/* =========================================================
+   MARKDOWN CONTENT
+   ========================================================= */
+
+#explanation h1,
+#explanation h2,
+#explanation h3,
+#explanation h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#explanation p {
+    margin-bottom: 15px;
+}
+
+#explanation ul,
+#explanation ol {
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+#explanation li {
+    margin-bottom: 6px;
+}
+
+#explanation strong {
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   QUESTION SECTION
+   ========================================================= */
+
+#questionSection {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+#questionSection h2 {
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+#question {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   ANSWER BOX
+   ========================================================= */
+
+#studentAnswer {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    resize: vertical;
+}
+
+#studentAnswer:focus {
+    outline: none;
+    border-color: #173b57;
+    box-shadow: 0 0 0 3px rgba(23, 59, 87, 0.1);
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+#submitButton {
+    background: #173b57;
+    color: white;
+}
+
+#submitButton:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   EVALUATION
+   ========================================================= */
+
+#evaluationSection {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+#evaluationSection h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#evaluation {
+    line-height: 1.8;
+}
+
+#evaluation p {
+    margin-bottom: 15px;
+}
+
+#evaluation ul,
+#evaluation ol {
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+#evaluation li {
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+#navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+#navigation button {
+    background: #e2e8f0;
+    color: #1f2937;
+}
+
+#navigation button:hover:not(:disabled) {
+    background: #cbd5e1;
+}
+
+
+/* =========================================================
+   CHOOSE ANOTHER LESSON
+   ========================================================= */
+
+#lessonContent > button {
+    background: #e2e8f0;
+    color: #1f2937;
+}
+
+#lessonContent > button:hover {
+    background: #cbd5e1;
+}
+
+
+/* =========================================================
+   ORIGINAL LESSON CARD SUPPORT
+   ========================================================= */
+
+.lesson-card {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.lesson-heading {
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+.explanation {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #374151;
+}
+
+
+/* =========================================================
+   ORIGINAL QUESTION CARD SUPPORT
+   ========================================================= */
+
+.question-card {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.question-heading {
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+.question {
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   ORIGINAL ANSWER SUPPORT
+   ========================================================= */
+
+#answer {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    resize: vertical;
+}
+
+#answer:focus {
+    outline: none;
+    border-color: #173b57;
+    box-shadow: 0 0 0 3px rgba(23, 59, 87, 0.1);
+}
+
+
+/* =========================================================
+   ORIGINAL FEEDBACK SUPPORT
+   ========================================================= */
+
+.feedback-card {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.feedback-heading {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.result {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.evaluation {
+    white-space: pre-line;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   ORIGINAL NAVIGATION SUPPORT
+   ========================================================= */
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.navigation button {
+    background: #e2e8f0;
+    color: #1f2937;
+}
+
+.navigation button:hover:not(:disabled) {
+    background: #cbd5e1;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .header {
+        padding: 18px 20px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .learn-brand img {
+        width: 105px;
+    }
+
+    .learn-navigation {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+
+    .learn-nav-link {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .learn-page-description {
+        text-align: center;
+    }
+
+    .container {
+        margin: 35px auto;
+        padding: 0 15px;
+    }
+
+    .learn-header h1 {
+        font-size: 25px;
+    }
+
+    #lessonSelection,
+    #sectionTitle,
+    #teachingContent,
+    #questionSection,
+    #evaluationSection {
+        padding: 20px;
+    }
+
+    #lessonSelection h2,
+    #lessonTitle h2 {
+        font-size: 22px;
+    }
+
+    #sectionTitle h2 {
+        font-size: 22px;
+    }
+
+    #explanation,
+    #question {
+        font-size: 16px;
+    }
+
+    #lessonSelect {
+        max-width: 100%;
+    }
+
+    #navigation {
+        flex-direction: column;
+    }
+
+    #navigation button {
+        width: 100%;
+    }
+
+    #startLessonButton {
+        width: 100%;
+    }
+}

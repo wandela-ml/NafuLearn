@@ -1,6 +1,7 @@
 from pathlib import Path
+import re
 
-
+from content_loader import load_all_lessons
 # ============================================================
 # PROJECT PATHS
 # ============================================================
@@ -9,16 +10,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Knowledge-base document
-LESSON_PATH = (
-    BASE_DIR
-    / "data"
-    / "knowledge_base"
-    / "grade10"
-    / "computer_studies"
-    / "foundation"
-    / "evolution_of_computers"
-    / "lesson_01_early_computing.md"
-)
+
 
 
 # ============================================================
@@ -137,19 +129,40 @@ def get_parent_section(processed_sections, current_level):
 # IDENTIFY CONTENT TYPE
 # ============================================================
 
-def get_content_type(section, section_order):
+def get_content_type(section, section_order, parent_section=None, parent_content_type=None):
     """
     Identify the type of educational content.
 
-    The lesson follows a known structure, so section order
-    is used to classify special sections reliably.
+    Classification is based on section titles and their
+    parent sections rather than fixed section numbers.
     """
+
+    # Get the section title
+    section_title, section_level = get_section_info(section)
+
+    title = section_title.lower().strip()
+
+    # Remove section numbering such as "36. " or "5.1 "
+
+    title = re.sub(r"^\d+(?:\.\d+)*\.\s*", "", title)
+
+    # Get the parent title if one exists
+    parent = ""
+
+    if parent_section:
+        parent = parent_section.lower().strip()
+
 
     # --------------------------------------------------------
     # Document and curriculum information
     # --------------------------------------------------------
 
-    if section_order <= 6:
+    document_sections = {
+        "learning objectives",
+        "prior knowledge",
+    }
+
+    if title in document_sections:
         return "document_metadata"
 
 
@@ -157,7 +170,10 @@ def get_content_type(section, section_order):
     # Activities
     # --------------------------------------------------------
 
-    if section_order in [34, 35, 36]:
+    if (
+        "activity" in title
+        or "activity" in parent
+    ):
         return "activity"
 
 
@@ -165,15 +181,56 @@ def get_content_type(section, section_order):
     # Guided questions
     # --------------------------------------------------------
 
-    if section_order == 37:
+    if (
+        "guided question" in title
+        or "guided question" in parent
+    ):
         return "guided_questions"
 
+
+    
+
+
+    # --------------------------------------------------------
+    # Answer key
+    # --------------------------------------------------------
+
+    if (
+        "answer key" in title
+        or "answer key" in parent
+    ):
+        return "answer_key"
+
+    if parent_content_type == "answer_key":
+        return "answer_key"
+
+
+    # --------------------------------------------------------
+    # Practice questions
+    # --------------------------------------------------------
+    
+    if (
+        "practice question" in title
+        or "practice question" in parent
+        ):
+        return "practice"
+    
+    
+    # --------------------------------------------------------
+    # Quiz
+    # --------------------------------------------------------
+    
+    if (
+         title == "quiz"
+         or "quiz" in parent
+         ):
+        return "quiz"
 
     # --------------------------------------------------------
     # Summary
     # --------------------------------------------------------
 
-    if section_order == 42:
+    if "summary" in title:
         return "summary"
 
 
@@ -181,40 +238,11 @@ def get_content_type(section, section_order):
     # Revision notes
     # --------------------------------------------------------
 
-    if section_order in [43, 44, 45, 46]:
+    if (
+        "revision" in title
+        or "revision" in parent
+    ):
         return "revision"
-
-
-    # --------------------------------------------------------
-    # Practice questions
-    # --------------------------------------------------------
-
-    if section_order == 47:
-        return "practice"
-
-
-    # --------------------------------------------------------
-    # Quiz
-    # --------------------------------------------------------
-
-    if section_order == 48:
-        return "quiz"
-
-
-    # --------------------------------------------------------
-    # Individual practice questions
-    # --------------------------------------------------------
-
-    if 49 <= section_order <= 53:
-        return "practice"
-
-
-    # --------------------------------------------------------
-    # Answer key
-    # --------------------------------------------------------
-
-    if section_order == 54:
-        return "answer_key"
 
 
     # --------------------------------------------------------
@@ -228,7 +256,7 @@ def get_content_type(section, section_order):
 # ADD METADATA
 # ============================================================
 
-def add_metadata(sections):
+def add_metadata(sections, lesson_metadata):
     """
     Attach curriculum and structural metadata to every section.
     """
@@ -243,31 +271,45 @@ def add_metadata(sections):
         # Extract title and Markdown heading level
         section_title, section_level = get_section_info(section)
 
-        # Identify type of educational content
-        content_type = get_content_type(
-            section,
-            section_order
-        )
 
         # Find the parent heading
         parent_section = get_parent_section(
             chunks,
             section_level
-        )
+            )
 
+        parent_content_type = None
+
+        if parent_section:
+            for previous_chunk in reversed(chunks):
+                if previous_chunk["metadata"]["section"] == parent_section:
+
+                    parent_content_type = previous_chunk["metadata"]["content_type"]
+                    break
+
+
+
+        content_type = get_content_type(
+            section,
+            section_order,
+            parent_section,
+            parent_content_type
+            )
+
+        
         # Create the chunk
         chunk = {
-            "id": f"lesson_01_chunk_{section_order}",
-
+            "id": f"{lesson_metadata['id']}_chunk_{section_order}",
             "content": section,
+
 
             "metadata": {
                 # Curriculum information
-                "subject": "Computer Studies",
-                "grade": "10",
-                "strand": "Foundation of Computer Studies",
-                "sub_strand": "Evolution and Development of Computers",
-                "lesson": "Early Computing Devices",
+                "subject": lesson_metadata["subject"],
+                "grade": lesson_metadata["grade"],
+                "strand": lesson_metadata["strand"],
+                "sub_strand": lesson_metadata["sub_strand"],
+                "lesson": lesson_metadata["title"],
 
                 # Structural information
                 "section": section_title,
@@ -286,34 +328,61 @@ def add_metadata(sections):
 
 
 # ============================================================
-# TEST THE CHUNKER
+# CHUNK ALL LESSONS
+# ============================================================
+
+def chunk_all_lessons():
+    """
+    Load every lesson from the knowledge base,
+    split each lesson into sections,
+    add metadata to each section,
+    and return all chunks together.
+    """
+
+    lessons = load_all_lessons()
+
+    all_chunks = []
+
+    for lesson in lessons:
+
+        sections = split_into_sections(
+            lesson["content"]
+        )
+
+        chunks = add_metadata(
+            sections,
+            lesson
+        )
+
+        all_chunks.extend(chunks)
+
+    return all_chunks
+
+
+# ============================================================
+# TEST CHUNKER
 # ============================================================
 
 if __name__ == "__main__":
 
-    # Load the lesson
-    document = load_document(LESSON_PATH)
-
-    # Split it into sections
-    sections = split_into_sections(document)
-
-    # Add metadata
-    chunks = add_metadata(sections)
-
-    print(f"Number of chunks: {len(chunks)}")
+    all_chunks = chunk_all_lessons()
 
     print("\n" + "=" * 80)
+    print("CHUNKER TEST")
+    print("=" * 80)
 
-    for chunk in chunks:
+    print(f"\nTotal chunks across all lessons: {len(all_chunks)}")
+
+    for chunk in all_chunks:
 
         metadata = chunk["metadata"]
 
         print(
+            f"{metadata['lesson']} | "
             f"{metadata['section_order']}. "
-            f"{metadata['section']} "
-            f"| level: {metadata['section_level']} "
-            f"| parent: {metadata['parent_section']} "
-            f"| type: {metadata['content_type']}"
+            f"{metadata['section']} | "
+            f"type: {metadata['content_type']}"
         )
 
     print("\n" + "=" * 80)
+

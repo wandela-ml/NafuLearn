@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Settings - NafuLearn</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='theme.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='settings.css') }}"
+    >
+
+    <script
+        src="{{ url_for('static', filename='theme.js') }}"
+    ></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     FULL-WIDTH HEADER
+     ===================================================== -->
+
+<header class="header">
+
+    <div class="header-content">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="settings-brand"
+        >
+
+            <img
+                src="{{ url_for('static', filename='images/nafulearn-brand.png') }}"
+                alt="NafuLearn"
+            >
+
+        </a>
+
+
+        <nav class="settings-navigation">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="settings-nav-link"
+            >
+                Home
+            </a>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="settings-nav-link"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="settings-nav-link"
+            >
+                Learn
+            </a>
+
+            <a
+                href="{{ url_for('ask') }}"
+                class="settings-nav-link"
+            >
+                Ask
+            </a>
+
+            <a
+                href="{{ url_for('settings') }}"
+                class="settings-nav-link active"
+            >
+                Settings
+            </a>
+
+        </nav>
+
+    </div>
+
+
+    <div class="settings-page-description">
+
+        <p>
+            Grade 10 • Computer Studies
+        </p>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+
+<main class="container">
+
+
+    <section class="settings-header">
+
+        <p class="small-heading">
+            NAFULEARN SETTINGS
+        </p>
+
+        <h1>
+            Settings
+        </h1>
+
+        <p>
+            Customize your NafuLearn learning experience.
+        </p>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         APPEARANCE
+         ========================================== -->
+
+    <section class="settings-card">
+
+        <h2>
+            🎨 Appearance
+        </h2>
+
+        <p class="section-description">
+            Choose the appearance that feels most comfortable
+            for studying.
+        </p>
+
+
+        <div class="setting-group">
+
+            <h3>
+                Theme
+            </h3>
+
+
+            <label class="theme-option">
+
+                <input
+                    type="radio"
+                    name="theme"
+                    value="light"
+                    onchange="selectTheme('light')"
+                >
+
+                <span class="theme-icon">
+                    ☀️
+                </span>
+
+                <span>
+
+                    <strong>
+                        Light Mode
+                    </strong>
+
+                    <small>
+                        Soft colors for daytime learning
+                    </small>
+
+                </span>
+
+            </label>
+
+
+
+            <label class="theme-option">
+
+                <input
+                    type="radio"
+                    name="theme"
+                    value="dark"
+                    onchange="selectTheme('dark')"
+                >
+
+                <span class="theme-icon">
+                    🌙
+                </span>
+
+                <span>
+
+                    <strong>
+                        Dark Mode
+                    </strong>
+
+                    <small>
+                        A darker interface for night studying
+                    </small>
+
+                </span>
+
+            </label>
+
+
+
+            <label class="theme-option">
+
+                <input
+                    type="radio"
+                    name="theme"
+                    value="system"
+                    onchange="selectTheme('system')"
+                >
+
+                <span class="theme-icon">
+                    🖥️
+                </span>
+
+                <span>
+
+                    <strong>
+                        System Default
+                    </strong>
+
+                    <small>
+                        Follow your device's appearance setting
+                    </small>
+
+                </span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         FUTURE SETTINGS
+         ========================================== -->
+
+    <section class="settings-card coming-soon">
+
+        <h2>
+            📚 Learning
+        </h2>
+
+        <p>
+            More learning preferences will be available here
+            as NafuLearn grows.
+        </p>
+
+    </section>
+
+
+
+    <section class="settings-card coming-soon">
+
+        <h2>
+            ♿ Accessibility
+        </h2>
+
+        <p>
+            Accessibility options such as font size and
+            reduced motion will be added here.
+        </p>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         BACK
+         ========================================== -->
+
+    <div class="back-link">
+
+        <a href="{{ url_for('home') }}">
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- ==========================================
+     SETTINGS JAVASCRIPT
+     ========================================== -->
+
+<script>
+
+    function selectTheme(theme) {
+
+        setTheme(theme);
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

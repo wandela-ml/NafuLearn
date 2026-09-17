@@ -1,0 +1,146 @@
+/* ==========================================
+   NafuLearn Global Theme System
+   ========================================== */
+
+
+/* ==========================================
+   DAY MODE
+   ========================================== */
+
+:root {
+
+    --background:
+        linear-gradient(
+            135deg,
+            #f3f8ff 0%,
+            #f7f5ff 50%,
+            #f1fbfa 100%
+        );
+
+    --card: #ffffff;
+
+    --card-soft: #f8fafc;
+
+    --text: #475569;
+
+    --text-muted: #64748b;
+
+    --heading: #405a78;
+
+    --accent: #668eaf;
+
+    --accent-hover: #52768f;
+
+    --teal: #79a6a5;
+
+    --border: #dce3eb;
+
+    --input: #fbfcff;
+
+    --shadow:
+        0 8px 30px rgba(79, 93, 122, 0.08);
+}
+
+
+/* ==========================================
+   NIGHT MODE
+   ========================================== */
+
+[data-theme="dark"] {
+
+    --background: #121212;
+
+    --card: #1a1a24;
+
+    --card-soft: #20212b;
+
+    --text: #d7d9df;
+
+    --text-muted: #a5a9b4;
+
+    --heading: #c7d0dc;
+
+    --accent: #7898b5;
+
+    --accent-hover: #8aa8c3;
+
+    --teal: #78a6a5;
+
+    --border: #30313d;
+
+    --input: #20212b;
+
+    --shadow:
+        0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ==========================================
+   GLOBAL ELEMENTS
+   ========================================== */
+
+body {
+    background: var(--background);
+    color: var(--text);
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+.card,
+.lesson-card,
+.question-card,
+.ask-card,
+.answer-card,
+.feedback-card {
+    background: var(--card);
+
+    border-color: var(--border);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+h1,
+h2,
+h3,
+h4 {
+    color: var(--heading);
+}
+
+
+p {
+    color: var(--text);
+}
+
+
+textarea,
+input {
+    background: var(--input);
+    color: var(--text);
+
+    border-color: var(--border);
+}
+
+
+textarea::placeholder,
+input::placeholder {
+    color: var(--text-muted);
+}
+
+
+a {
+    color: var(--accent);
+}
+
+
+a:hover {
+    color: var(--accent-hover);
+}

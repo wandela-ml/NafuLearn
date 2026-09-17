@@ -1,0 +1,388 @@
+
+/* ==========================================
+   NafuLearn - Settings
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+
+    min-height: 100vh;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.header {
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #527da3,
+            #6579a8,
+            #5d8f91
+        );
+
+    color: white;
+
+    padding: 20px 40px;
+
+    box-shadow:
+        0 3px 12px rgba(79, 93, 122, 0.12);
+}
+
+
+.header-content {
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+
+.settings-brand {
+    display: flex;
+
+    align-items: center;
+
+    flex-shrink: 0;
+
+    text-decoration: none;
+}
+
+
+.settings-brand img {
+    display: block;
+
+    width: 120px;
+
+    height: auto;
+
+    max-height: 42px;
+
+    object-fit: contain;
+}
+
+
+.settings-navigation {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 6px;
+}
+
+
+.settings-nav-link {
+    color: white;
+
+    text-decoration: none;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.settings-nav-link:hover {
+    background: rgba(255, 255, 255, 0.10);
+
+    color: white;
+
+    transform: translateY(-1px);
+}
+
+
+.settings-nav-link.active {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+
+.settings-page-description {
+    max-width: 1000px;
+
+    margin: 8px auto 0;
+}
+
+
+.settings-page-description p {
+    font-size: 15px;
+
+    opacity: 0.92;
+}
+
+/* ==========================================
+   MAIN CONTAINER
+   ========================================== */
+
+.container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+
+/* ==========================================
+   PAGE HEADER
+   ========================================== */
+
+.settings-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.small-heading {
+    color: var(--accent);
+
+    font-size: 13px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 8px;
+}
+
+
+.settings-header h1 {
+    color: var(--heading);
+
+    font-size: 36px;
+
+    margin-bottom: 10px;
+}
+
+
+.settings-header p {
+    color: var(--text-muted);
+}
+
+
+/* ==========================================
+   SETTINGS CARD
+   ========================================== */
+
+.settings-card {
+    background: var(--card);
+
+    padding: 30px;
+
+    margin-bottom: 22px;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.settings-card h2 {
+    color: var(--heading);
+
+    margin-bottom: 6px;
+}
+
+
+.section-description {
+    color: var(--text-muted);
+
+    margin-bottom: 25px;
+}
+
+
+/* ==========================================
+   SETTING GROUP
+   ========================================== */
+
+.setting-group h3 {
+    color: var(--heading);
+
+    font-size: 17px;
+
+    margin-bottom: 12px;
+}
+
+
+/* ==========================================
+   THEME OPTIONS
+   ========================================== */
+
+.theme-option {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 16px;
+
+    margin-bottom: 10px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: var(--card-soft);
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.theme-option:hover {
+    transform: translateY(-1px);
+
+    border-color: var(--accent);
+}
+
+
+.theme-option input {
+    width: 18px;
+    height: 18px;
+
+    accent-color: var(--accent);
+
+    flex-shrink: 0;
+}
+
+
+.theme-icon {
+    font-size: 24px;
+
+    width: 32px;
+
+    text-align: center;
+}
+
+
+.theme-option strong {
+    display: block;
+
+    color: var(--heading);
+
+    margin-bottom: 2px;
+}
+
+
+.theme-option small {
+    display: block;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   COMING SOON SECTIONS
+   ========================================== */
+
+.coming-soon {
+    opacity: 0.82;
+}
+
+
+.coming-soon p {
+    color: var(--text-muted);
+}
+
+
+/* ==========================================
+   BACK LINK
+   ========================================== */
+
+.back-link {
+    text-align: center;
+
+    margin-top: 30px;
+}
+
+
+.back-link a {
+    color: var(--accent);
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+.back-link a:hover {
+    color: var(--accent-hover);
+
+    text-decoration: underline;
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .container {
+        margin: 30px auto;
+
+        padding: 0 15px;
+    }
+
+
+    .settings-header h1 {
+        font-size: 30px;
+    }
+
+
+    .settings-card {
+        padding: 20px;
+    }
+
+
+    .theme-option {
+        padding: 14px;
+    }
+
+}

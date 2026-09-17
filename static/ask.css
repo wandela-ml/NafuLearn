@@ -1,0 +1,483 @@
+/* ==========================================
+   NafuLearn - Ask Mode
+   Global Theme Compatible
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    line-height: 1.6;
+
+    min-height: 100vh;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+/* =========================================================
+   FULL-WIDTH HEADER
+   ========================================================= */
+
+.header {
+    width: 100%;
+    background: #173b57;
+    color: white;
+    padding: 20px 40px;
+}
+
+.header-content {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+.ask-brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.ask-brand img {
+    display: block;
+    width: 120px;
+    height: auto;
+    max-height: 42px;
+    object-fit: contain;
+}
+
+.ask-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 6px;
+}
+
+.ask-nav-link {
+    color: white;
+    text-decoration: none;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ask-nav-link:hover {
+    background: rgba(255, 255, 255, 0.10);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.ask-nav-link.active {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.ask-page-description {
+    max-width: 1000px;
+    margin: 8px auto 0;
+}
+
+.ask-page-description p {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+/* ==========================================
+   Main container
+   ========================================== */
+
+.container {
+    max-width: 850px;
+
+    margin: 50px auto;
+
+    padding: 0 20px;
+}
+
+
+/* ==========================================
+   Page introduction
+   ========================================== */
+
+.ask-header {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.small-heading {
+    color: var(--accent);
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 8px;
+}
+
+
+.ask-header h1 {
+    font-size: 36px;
+
+    color: var(--heading);
+
+    margin-bottom: 12px;
+}
+
+
+.ask-header p {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: var(--text-muted);
+}
+
+
+/* ==========================================
+   Question card
+   ========================================== */
+
+.ask-card {
+    background: var(--card);
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.ask-card label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+
+    color: var(--heading);
+}
+
+
+/* ==========================================
+   Question textarea
+   ========================================== */
+
+textarea {
+    width: 100%;
+
+    min-height: 160px;
+
+    padding: 15px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    background: var(--input);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    outline: none;
+
+    resize: vertical;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+textarea::placeholder {
+    color: var(--text-muted);
+}
+
+
+textarea:focus {
+    border-color: var(--accent);
+}
+
+
+/* ==========================================
+   Ask button
+   ========================================== */
+
+#ask-button {
+    margin-top: 18px;
+
+    padding: 13px 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--teal)
+        );
+
+    color: white;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(92, 117, 151, 0.16);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+#ask-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 16px rgba(92, 117, 151, 0.20);
+}
+
+
+#ask-button:active {
+    transform: translateY(0);
+}
+
+
+#ask-button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    transform: none;
+}
+
+
+/* ==========================================
+   Loading message
+   ========================================== */
+
+.loading {
+    margin-top: 15px;
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   Answer card
+   ========================================== */
+
+.answer-card {
+    margin-top: 25px;
+
+    background: var(--card);
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--border);
+
+    border-left: 4px solid var(--teal);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.answer-card h2 {
+    color: var(--heading);
+
+    margin-bottom: 18px;
+}
+
+
+/* ==========================================
+   Markdown answer formatting
+   ========================================== */
+
+.answer {
+    color: var(--text);
+
+    font-size: 16px;
+}
+
+
+.answer p {
+    margin-bottom: 14px;
+}
+
+
+.answer h1,
+.answer h2,
+.answer h3,
+.answer h4 {
+    color: var(--heading);
+
+    margin-top: 18px;
+
+    margin-bottom: 10px;
+}
+
+
+.answer ul,
+.answer ol {
+    margin-left: 24px;
+
+    margin-bottom: 16px;
+}
+
+
+.answer li {
+    margin-bottom: 7px;
+}
+
+
+.answer strong {
+    color: var(--heading);
+}
+
+
+.answer code {
+    background: var(--card-soft);
+
+    color: var(--text);
+
+    padding: 2px 5px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 4px;
+
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   Back link
+   ========================================== */
+
+.back-link {
+    text-align: center;
+
+    margin-top: 30px;
+}
+
+
+.back-link a {
+    color: var(--accent);
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+.back-link a:hover {
+    color: var(--accent-hover);
+
+    text-decoration: underline;
+}
+
+
+/* ==========================================
+   Mobile
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .header-content {
+        flex-direction: column;
+
+        gap: 5px;
+
+        text-align: center;
+    }
+
+
+    .container {
+        margin: 30px auto;
+
+        padding: 0 15px;
+    }
+
+
+    .ask-header h1 {
+        font-size: 30px;
+    }
+
+
+    .ask-card {
+        padding: 20px;
+    }
+
+
+    .answer-card {
+        padding: 20px;
+    }
+
+
+    #ask-button {
+        width: 100%;
+    }
+
+}

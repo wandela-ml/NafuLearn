@@ -1,15 +1,11 @@
-# NafuLearn — Grade 10 Computer Studies
-
-## Strand
-
-Foundation of Computer Studies
-
-## Sub-strand
-
-Evolution and Development of Computers
-
-## Lesson 1: Early Computing Devices
-
+---
+id: grade10_computer_studies_evolution_01
+title: Early Computing Devices
+subject: Computer Studies
+grade: 10
+strand: Foundation of Computer Studies
+sub_strand: Evolution and Development of Computers
+lesson_number: 1
 ---
 
 ## Learning Objectives

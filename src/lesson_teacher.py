@@ -1,28 +1,10 @@
-import os
-
-from dotenv import load_dotenv
-from google import genai
-
 from lesson_navigator import (
     load_lesson,
     get_learning_sections,
 )
 
+from gemini_service import generate_content
 
-# ---------------------------------------------------------
-# GEMINI SETUP
-# ---------------------------------------------------------
-
-load_dotenv()
-
-api_key = os.getenv("Gemini_api_key")
-
-if not api_key:
-    raise ValueError(
-        "GEMINI_API_KEY was not found in .env file"
-    )
-
-client = genai.Client(api_key=api_key)
 
 
 # ---------------------------------------------------------
@@ -98,12 +80,7 @@ def teach_section(section):
 
     prompt = build_teaching_prompt(section)
 
-    response = client.models.generate_content(
-        model="gemini-3.6-flash",
-        contents=prompt
-    )
-
-    text = response.text.strip()
+    text = generate_content(prompt).strip()
 
     explanation = ""
     question = ""

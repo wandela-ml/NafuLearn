@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NafuLearn - {{ grade }}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='theme.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='index.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='dashboard.css') }}"
+    >
+
+    <script
+        src="{{ url_for('static', filename='theme.js') }}"
+    ></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+
+<header class="site-header dashboard-header">
+
+    <div class="header-content">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="{{ url_for('home') }}"
+            class="header-logo"
+        >
+
+            <img
+                src="{{ url_for('static', filename='images/nafulearn-brand.png') }}"
+                alt="NafuLearn"
+            >
+
+        </a>
+
+
+        <!-- NAVIGATION LINKS -->
+
+        <nav class="main-navigation">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="nav-link"
+            >
+                Home
+            </a>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="nav-link"
+            >
+                Learn
+            </a>
+
+            <a
+                href="{{ url_for('ask') }}"
+                class="nav-link"
+            >
+                Ask
+            </a>
+
+            <a
+                href="{{ url_for('settings') }}"
+                class="nav-link"
+            >
+                Settings
+            </a>
+
+        </nav>
+
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     GRADE DASHBOARD
+     ===================================================== -->
+
+<main class="dashboard-page">
+
+
+    <!-- =================================================
+         INTRODUCTION
+         ================================================= -->
+
+    <section class="dashboard-introduction">
+
+        <p class="dashboard-label">
+            NAFULEARN
+        </p>
+
+        <h1>
+            {{ grade }}
+        </h1>
+
+        <p>
+            Choose a category to explore your subjects.
+        </p>
+
+    </section>
+
+
+    <!-- =================================================
+         CATEGORY SELECTION
+         ================================================= -->
+
+    <section class="grade-section">
+
+        <div class="grade-grid">
+
+
+            {% for category in categories %}
+
+            <a
+                href="{{ url_for(
+                    'category_dashboard',
+                    grade=grade.replace('Grade ', ''),
+                    category=category
+                ) }}"
+                    
+                class="grade-card"
+            >
+
+                <div class="grade-content">
+
+                    <h2>
+                        {{ category }}
+                    </h2>
+
+                    <p>
+                        Explore subjects in this category.
+                    </p>
+
+                </div>
+
+                <div class="grade-arrow">
+                    →
+                </div>
+
+            </a>
+
+            {% endfor %}
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 NafuLearn
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

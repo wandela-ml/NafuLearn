@@ -1,0 +1,147 @@
+/* ============================================================
+   DASHBOARD PAGE
+   ============================================================ */
+
+.dashboard-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 110px 30px 70px;
+}
+
+
+/* ============================================================
+   DASHBOARD INTRODUCTION
+   ============================================================ */
+
+.dashboard-introduction {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 38px;
+}
+
+.dashboard-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    margin-bottom: 10px;
+    opacity: 0.7;
+}
+
+.dashboard-introduction h1 {
+    margin: 0 0 12px;
+    font-size: 2.2rem;
+}
+
+.dashboard-introduction p:last-child {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.75;
+}
+
+
+/* ============================================================
+   GRADE SECTION
+   ============================================================ */
+
+.grade-section {
+    width: 100%;
+}
+
+.grade-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+
+/* ============================================================
+   GRADE CARD
+   ============================================================ */
+
+.grade-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 190px;
+    padding: 24px;
+
+    text-decoration: none;
+
+    border: 1px solid rgba(127, 127, 127, 0.2);
+    border-radius: 16px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.grade-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.07);
+
+    border-color: rgba(127, 127, 127, 0.4);
+}
+
+
+/* ============================================================
+   GRADE NUMBER
+   ============================================================ */
+
+.grade-number {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+
+    margin-bottom: 22px;
+
+    opacity: 0.15;
+}
+
+
+/* ============================================================
+   GRADE CONTENT
+   ============================================================ */
+
+.grade-content {
+    flex: 1;
+}
+
+.grade-content h2 {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+}
+
+.grade-content p {
+    margin: 0;
+
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.7;
+}
+
+
+/* ============================================================
+   ARROW
+   ============================================================ */
+
+.grade-arrow {
+    align-self: flex-end;
+
+    font-size: 1.25rem;
+
+    margin-top: 14px;
+
+    transition: transform 0.2s ease;
+}
+
+.grade-card:hover .grade-arrow {
+    transform: translateX(4px);
+}
+
+

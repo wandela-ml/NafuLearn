@@ -1,7 +1,6 @@
-import os
-from dotenv import load_dotenv
-from google import genai
 import json
+
+from sentence_transformers import SentenceTransformer
 
 from chunker import (
     BASE_DIR,
@@ -10,26 +9,20 @@ from chunker import (
 
 
 # ============================================================
-# LOAD ENVIRONMENT VARIABLES
+# LOAD LOCAL EMBEDDING MODEL
 # ============================================================
 
-load_dotenv()
+print("\n" + "=" * 60)
+print("NafuLearn — LOCAL EMBEDDING GENERATION")
+print("=" * 60)
 
-api_key = os.getenv("Gemini_api_key")
+print("\nLoading local embedding model...")
 
-if not api_key:
-    raise ValueError(
-        "GEMINI_API_KEY was not found in .env file"
-    )
-
-
-# ============================================================
-# CREATE GEMINI CLIENT
-# ============================================================
-
-client = genai.Client(
-    api_key=api_key
+model = SentenceTransformer(
+    "sentence-transformers/all-MiniLM-L6-v2"
 )
+
+print("Model loaded successfully.")
 
 
 # ============================================================
@@ -38,33 +31,31 @@ client = genai.Client(
 
 chunks = chunk_all_lessons()
 
-print("\n" + "=" * 60)
-print("EMBEDDING GENERATION")
-print("=" * 60)
-
 print(f"\nTotal chunks loaded: {len(chunks)}")
 
 
 # ============================================================
-# GENERATE EMBEDDINGS
+# GENERATE LOCAL EMBEDDINGS
 # ============================================================
 
 for index, chunk in enumerate(chunks, start=1):
 
-    response = client.models.embed_content(
-        model="gemini-embedding-001",
-        contents=chunk["content"]
+    content = chunk["content"]
+
+    embedding = model.encode(
+        content,
+        normalize_embeddings=True
     )
 
-    embedding = response.embeddings[0].values
+    chunk["embedding"] = embedding.tolist()
 
-    chunk["embedding"] = embedding
+    metadata = chunk["metadata"]
 
     print(
         f"{index}/{len(chunks)} | "
-        f"{chunk['metadata']['lesson']} | "
-        f"{chunk['metadata']['section']} | "
-        f"Embedding dimensions: {len(embedding)}"
+        f"{metadata['lesson']} | "
+        f"{metadata['section']} | "
+        f"Dimensions: {len(embedding)}"
     )
 
 
@@ -85,12 +76,12 @@ embeddings_dir.mkdir(
 
 
 # ============================================================
-# SAVE EMBEDDINGS
+# SAVE LOCAL EMBEDDINGS
 # ============================================================
 
 output_path = (
     embeddings_dir
-    / "all_embeddings.json"
+    / "all_embeddings_local.json"
 )
 
 with open(
@@ -112,8 +103,9 @@ with open(
 # ============================================================
 
 print("\n" + "=" * 60)
-print("EMBEDDINGS SAVED SUCCESSFULLY")
+print("LOCAL EMBEDDINGS SAVED SUCCESSFULLY")
 print("=" * 60)
 
 print(f"\nTotal embeddings: {len(chunks)}")
+print("Embedding dimensions: 384")
 print(f"Saved to: {output_path}")

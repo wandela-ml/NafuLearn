@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NafuLearn - Learn Mode</title>
+
+
+    <!-- =====================================================
+         THEME
+         ===================================================== -->
+
+    <!--====================================================
+         <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='theme.css') }}"
+    >===================================================-->
+
+
+    <!-- =====================================================
+         LEARN PAGE STYLES
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='learn.css') }}"
+    >
+    <!--================================================
+    <script
+        src="{{ url_for('static', filename='theme.js') }}"
+    ></script>
+    =============================================-->
+
+    
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         FULL-WIDTH HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <div class="header-content">
+
+
+            <!-- LOGO -->
+
+            <a
+                href="{{ url_for('home') }}"
+                class="learn-brand"
+            >
+
+                <img
+                    src="{{ url_for('static', filename='images/nafulearn-brand.png') }}"
+                    alt="NafuLearn"
+                >
+
+            </a>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="learn-navigation">
+
+                <a
+                    href="{{ url_for('home') }}"
+                    class="learn-nav-link"
+                >
+                    Home
+                </a>
+
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="learn-nav-link"
+                >
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="{{ url_for('learn') }}"
+                    class="learn-nav-link active"
+                >
+                    Learn
+                </a>
+
+
+                <a
+                    href="{{ url_for('ask') }}"
+                    class="learn-nav-link"
+                >
+                    Ask
+                </a>
+
+
+                <a
+                    href="{{ url_for('settings') }}"
+                    class="learn-nav-link"
+                >
+                    Settings
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <!-- PAGE DESCRIPTION -->
+
+        <div class="learn-page-description">
+
+            <p>
+                Grade 10 • Computer Studies
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================================
+             LESSON SELECTION
+             ================================================= -->
+
+        <div id="lessonSelection">
+
+            <h2>
+                Choose a Lesson
+            </h2>
+
+
+            <p>
+                Select a lesson to begin learning.
+            </p>
+
+
+            <select id="lessonSelect">
+
+                <option value="">
+                    Loading lessons...
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                id="startLessonButton"
+            >
+                Start Lesson
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             LESSON CONTENT
+             ================================================= -->
+
+        <div
+            id="lessonContent"
+            style="display: none;"
+        >
+
+
+            <!-- =================================================
+                 LESSON HEADER
+                 ================================================= -->
+
+            <div class="learn-header">
+
+                <h1 id="lessonTitle"></h1>
+
+
+                <div class="progress">
+
+                    <span id="sectionCounter"></span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SECTION TITLE
+                 ================================================= -->
+
+            <div id="sectionTitle">
+
+                <h2 id="currentSectionTitle"></h2>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TEACHING CONTENT
+                 ================================================= -->
+
+            <div id="teachingContent">
+
+                <h2>
+                    Explanation
+                </h2>
+
+
+                <div id="explanation"></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUESTION
+                 ================================================= -->
+
+            <div id="questionSection">
+
+                <h2>
+                    Check Your Understanding
+                </h2>
+
+
+                <div id="question"></div>
+
+
+                <textarea
+                    id="studentAnswer"
+                    placeholder="Write your answer here..."
+                ></textarea>
+
+
+                <button
+                    type="button"
+                    id="submitButton"
+                >
+                    Submit Answer
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EVALUATION
+                 ================================================= -->
+
+            <div
+                id="evaluationSection"
+                style="display: none;"
+            >
+
+                <h2>
+                    NafuLearn's Feedback
+                </h2>
+
+
+                <div id="evaluation"></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SECTION NAVIGATION
+                 ================================================= -->
+
+            <div id="navigation">
+
+                <button
+                    type="button"
+                    id="previousButton"
+                >
+                    ← Previous
+                </button>
+
+
+                <button
+                    type="button"
+                    id="nextButton"
+                >
+                    Next →
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RETURN TO LESSON SELECTION
+                 ================================================= -->
+
+            <button
+                type="button"
+                id="backToLessonsButton"
+            >
+                Choose Another Lesson
+            </button>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         MARKED
+         ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+
+
+    <!-- =====================================================
+         THEME JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        src="{{ url_for('static', filename='theme.js') }}"
+    ></script>
+
+
+
+    <!-- =====================================================
+         LEARN MODE JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           STATE
+           ===================================================== */
+
+        let currentLessonId = null;
+
+        let currentPosition = 1;
+
+        let totalSections = 0;
+
+        let currentQuestion = null;
+
+
+
+        /* =====================================================
+           LOAD CURRICULUM
+           ===================================================== */
+
+        async function loadLessons() {
+
+            const lessonSelect =
+                document.getElementById(
+                    "lessonSelect"
+                );
+
+
+            try {
+
+                console.log(
+                    "Loading curriculum..."
+                );
+
+
+                const response =
+                    await fetch(
+                        "/api/curriculum"
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Curriculum request failed: ${response.status}`
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Curriculum received:",
+                    data
+                );
+                console.log(
+                    "Curriculum keys:",
+                    Object.keys(data.curriculum || {})
+                );
+                console.log(
+                    "Grade 10 data:",
+                    data.curriculum?.["Grade 10"]
+                );
+                console.log(
+                    "Grade 10 subject keys:",
+                    Object.keys(
+                        data.curriculum?.["Grade 10"] || {}
+                    ).join(" | ")
+                );
+
+
+                if (!data.success) {
+
+                    throw new Error(
+                        data.error ||
+                        "Unable to load curriculum."
+                    );
+
+                }
+
+
+                /*
+                 * Current curriculum structure:
+                 *
+                 * Grade
+                 *   ↓
+                 * Subject
+                 *   ↓
+                 * Strand
+                 *   ↓
+                 * Sub-strand
+                 *   ↓
+                 * Lessons
+                 */
+
+
+                const grade10 =
+                    data.curriculum["Grade 10"];
+
+
+                if (!grade10) {
+
+                    throw new Error(
+                        "Grade 10 curriculum not found."
+                    );
+
+                }
+
+
+                const computerStudies =
+                    grade10["Computer studies"];
+                
+
+                console.log(
+                    "Computer studies data:",
+                    computerStudies
+                );
+                console.log(
+                    "Computer studies keys:",
+                    Object.keys(computerStudies || {}).join(" | ")
+                );
+
+
+                if (!computerStudies) {
+
+                    throw new Error(
+                        "Computer Studies curriculum not found."
+                    );
+
+                }
+
+
+                /*
+                 * Remove existing options.
+                 */
+
+                lessonSelect.innerHTML = "";
+
+
+                /*
+                 * Default option.
+                 */
+
+                const defaultOption =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                defaultOption.value = "";
+
+
+                defaultOption.textContent =
+                    "Select a lesson...";
+
+
+                lessonSelect.appendChild(
+                    defaultOption
+                );
+
+
+                let lessonCount = 0;
+
+
+                /*
+                 * Loop through:
+                 *
+                 * Strand
+                 *   → Sub-strand
+                 *      → Lessons
+                 */
+
+                Object.values(
+                    computerStudies.strands || {}
+                ).forEach(
+                    strand => {
+                        Object.values(
+                            strand
+                        ).forEach(
+                            lessons => {
+                                
+                                if (
+                                    !Array.isArray(
+                                        lessons
+                                    )
+                                ) {
+                                    return;
+                                }
+                                lessons.forEach(
+                                    lesson => {
+                                        
+                                        if (
+                                            !lesson.lesson_id
+                                        ) {
+                                            return;
+                                        }
+                                        const option =
+                                        document.createElement(
+                                            "option"
+                                        );
+                                        option.value =
+                                        lesson.lesson_id;
+                                        option.textContent =
+                                        lesson.lesson;
+                                        lessonSelect.appendChild(
+                                            option
+                                        );
+                                        lessonCount++;
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+
+
+                console.log(
+                    `Lessons loaded: ${lessonCount}`
+                );
+
+
+                if (lessonCount === 0) {
+
+                    lessonSelect.innerHTML = "";
+
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+
+                    option.value = "";
+
+
+                    option.textContent =
+                        "No lessons available.";
+
+
+                    lessonSelect.appendChild(
+                        option
+                    );
+
+                }
+
+
+                /*
+ * Check whether a lesson was supplied
+ * by the dashboard.
+ */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const requestedLessonId =
+    params.get("lesson_id");
+
+
+if (requestedLessonId) {
+
+    console.log(
+        "Lesson requested by dashboard:",
+        requestedLessonId
+    );
+
+    console.log(
+        "Available lesson IDs:",
+        Array.from(
+            lessonSelect.options
+        ).map(
+            option => option.value
+        )
+    );
+
+    const requestedOption =
+        Array.from(
+            lessonSelect.options
+        ).find(
+            option =>
+                option.value ===
+                requestedLessonId
+        );
+
+
+    if (requestedOption) {
+
+        console.log(
+            "Matching lesson found:",
+            requestedOption.textContent
+        );
+
+        lessonSelect.value =
+            requestedLessonId;
+
+        await startLesson();
+
+    } else {
+
+        console.error(
+            "Dashboard lesson ID was not found:",
+            requestedLessonId
+        );
+
+    }
+
+}
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Error loading curriculum:",
+                    error
+                );
+
+
+                lessonSelect.innerHTML = "";
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value = "";
+
+
+                option.textContent =
+                    "Unable to load lessons.";
+
+
+                lessonSelect.appendChild(
+                    option
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           START LESSON
+           ===================================================== */
+
+        async function startLesson() {
+
+            const lessonSelect =
+                document.getElementById(
+                    "lessonSelect"
+                );
+
+
+            const lessonId =
+                lessonSelect.value;
+
+
+            console.log(
+                "Selected lesson:",
+                lessonId
+            );
+
+
+            if (!lessonId) {
+
+                alert(
+                    "Please select a lesson."
+                );
+
+                return;
+
+            }
+
+
+            currentLessonId =
+                lessonId;
+
+
+            try {
+
+                console.log(
+                    "Starting lesson:",
+                    currentLessonId
+                );
+
+
+                const response =
+                    await fetch(
+                        "/api/learn/start",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                lesson_id:
+                                    currentLessonId
+                            })
+                        }
+                    );
+
+
+                console.log(
+                    "Start lesson status:",
+                    response.status
+                );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Start lesson response:",
+                    data
+                );
+
+
+                if (!data.success) {
+
+                    alert(
+                        data.error ||
+                        "Unable to start lesson."
+                    );
+
+                    return;
+
+                }
+
+
+                totalSections =
+                    data.total_sections;
+
+
+                currentPosition = 1;
+
+
+                /*
+                 * Hide lesson selection.
+                 */
+
+                document.getElementById(
+                    "lessonSelection"
+                ).style.display = "none";
+
+
+                /*
+                 * Show lesson content.
+                 */
+
+                document.getElementById(
+                    "lessonContent"
+                ).style.display = "block";
+
+
+                /*
+                 * Set lesson title.
+                 */
+
+                document.getElementById(
+                    "lessonTitle"
+                ).textContent =
+                    getLessonTitle(data);
+
+
+                /*
+                 * Load first section.
+                 */
+
+                await loadSection(
+                    currentPosition
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Start lesson error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to start the lesson."
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           LOAD SECTION
+           ===================================================== */
+
+        async function loadSection(
+            position
+        ) {
+
+            try {
+
+                console.log(
+                    "Loading section:",
+                    position
+                );
+
+
+                const response =
+                    await fetch(
+                        `/api/learn/section/${position}?lesson_id=${encodeURIComponent(currentLessonId)}`
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Section request failed: ${response.status}`
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Section received:",
+                    data
+                );
+
+
+                if (!data.success) {
+
+                    alert(
+                        data.error ||
+                        "Unable to load section."
+                    );
+
+                    return;
+
+                }
+
+
+                currentPosition =
+                    position;
+
+
+                /*
+                 * Section title
+                 */
+
+                document.getElementById(
+                    "currentSectionTitle"
+                ).textContent =
+                    data.section;
+
+
+                /*
+                 * Section counter
+                 */
+
+                document.getElementById(
+                    "sectionCounter"
+                ).textContent =
+                    `Section ${position} of ${totalSections}`;
+
+
+                /*
+                 * Explanation
+                 */
+
+                document.getElementById(
+                    "explanation"
+                ).innerHTML =
+                    marked.parse(
+                        data.explanation ||
+                        ""
+                    );
+
+
+                /*
+                 * Question
+                 */
+
+                currentQuestion =
+                    data.question ||
+                    "";
+
+
+                document.getElementById(
+                    "question"
+                ).innerHTML =
+                    marked.parse(
+                        currentQuestion
+                    );
+
+
+                /*
+                 * Clear previous answer.
+                 */
+
+                document.getElementById(
+                    "studentAnswer"
+                ).value = "";
+
+
+                /*
+                 * Hide old evaluation.
+                 */
+
+                document.getElementById(
+                    "evaluationSection"
+                ).style.display =
+                    "none";
+
+
+                /*
+                 * Update navigation buttons.
+                 */
+
+                updateNavigation();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Load section error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to load this section."
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           SUBMIT ANSWER
+           ===================================================== */
+
+        async function submitAnswer() {
+
+            const answer =
+                document.getElementById(
+                    "studentAnswer"
+                ).value.trim();
+
+
+            if (!answer) {
+
+                alert(
+                    "Please write an answer first."
+                );
+
+                return;
+
+            }
+
+
+            const evaluationSection =
+                document.getElementById(
+                    "evaluationSection"
+                );
+
+
+            const evaluation =
+                document.getElementById(
+                    "evaluation"
+                );
+
+
+            evaluationSection.style.display =
+                "block";
+
+
+            evaluation.innerHTML =
+                "<p>Checking your answer...</p>";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/learn/evaluate",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                lesson_id:
+                                    currentLessonId,
+
+                                position:
+                                    currentPosition,
+
+                                question:
+                                    currentQuestion,
+
+                                student_answer:
+                                    answer
+
+                            })
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Evaluation request failed."
+                    );
+
+                }
+
+
+                const reader =
+                    response.body.getReader();
+
+
+                const decoder =
+                    new TextDecoder();
+
+
+                let result = "";
+
+
+                while (true) {
+
+                    const {
+                        value,
+                        done
+                    } =
+                        await reader.read();
+
+
+                    if (done) {
+
+                        break;
+
+                    }
+
+
+                    const chunk =
+                        decoder.decode(
+                            value,
+                            {
+                                stream: true
+                            }
+                        );
+
+
+                    const lines =
+                        chunk.split("\n");
+
+
+                    for (
+                        const line of lines
+                    ) {
+
+                        if (
+                            !line.trim()
+                        ) {
+
+                            continue;
+
+                        }
+
+
+                        try {
+
+                            const data =
+                                JSON.parse(
+                                    line
+                                );
+
+
+                            if (
+                                data.text
+                            ) {
+
+                                result +=
+                                    data.text;
+
+
+                                evaluation.innerHTML =
+                                    formatEvaluation(
+                                        result
+                                    );
+
+                            }
+
+                        }
+
+                        catch (error) {
+
+                            console.error(
+                                "Streaming parse error:",
+                                error
+                            );
+
+                        }
+
+                    }
+
+                }
+
+
+                evaluation.innerHTML =
+                    formatEvaluation(
+                        result
+                    );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Evaluation error:",
+                    error
+                );
+
+
+                evaluation.innerHTML =
+                    "<p>Sorry, I could not evaluate your answer.</p>";
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           FORMAT MARKDOWN
+           ===================================================== */
+
+        function formatEvaluation(
+            text
+        ) {
+
+            return marked.parse(
+                text || ""
+            );
+
+        }
+
+
+
+        /* =====================================================
+           NEXT SECTION
+           ===================================================== */
+
+        async function nextSection() {
+
+            if (
+                currentPosition <
+                totalSections
+            ) {
+
+                await loadSection(
+                    currentPosition + 1
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           PREVIOUS SECTION
+           ===================================================== */
+
+        async function previousSection() {
+
+            if (
+                currentPosition > 1
+            ) {
+
+                await loadSection(
+                    currentPosition - 1
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE NAVIGATION
+           ===================================================== */
+
+        function updateNavigation() {
+
+            const previousButton =
+                document.getElementById(
+                    "previousButton"
+                );
+
+
+            const nextButton =
+                document.getElementById(
+                    "nextButton"
+                );
+
+
+            previousButton.disabled =
+                currentPosition <= 1;
+
+
+            nextButton.disabled =
+                currentPosition >=
+                totalSections;
+
+        }
+
+
+
+        /* =====================================================
+           BACK TO LESSONS
+           ===================================================== */
+
+        function backToLessons() {
+
+            document.getElementById(
+                "lessonContent"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "lessonSelection"
+            ).style.display =
+                "block";
+
+
+            currentLessonId = null;
+
+            currentPosition = 1;
+
+            totalSections = 0;
+
+        }
+
+
+
+        /* =====================================================
+           GET LESSON TITLE
+           ===================================================== */
+
+        function getLessonTitle(
+            data
+        ) {
+
+            if (
+                data.lesson_title
+            ) {
+
+                return data.lesson_title;
+
+            }
+
+
+            if (
+                data.lesson
+            ) {
+
+                return data.lesson;
+
+            }
+
+
+            return "Computer Studies";
+
+        }
+
+
+
+        /* =====================================================
+           PAGE INITIALIZATION
+           ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function() {
+
+                console.log(
+                    "NafuLearn Learn page initialized."
+                );
+
+
+                /*
+                 * Connect buttons.
+                 */
+
+                document
+                    .getElementById(
+                        "startLessonButton"
+                    )
+                    .addEventListener(
+                        "click",
+                        startLesson
+                    );
+
+
+                document
+                    .getElementById(
+                        "submitButton"
+                    )
+                    .addEventListener(
+                        "click",
+                        submitAnswer
+                    );
+
+
+                document
+                    .getElementById(
+                        "previousButton"
+                    )
+                    .addEventListener(
+                        "click",
+                        previousSection
+                    );
+
+
+                document
+                    .getElementById(
+                        "nextButton"
+                    )
+                    .addEventListener(
+                        "click",
+                        nextSection
+                    );
+
+
+                document
+                    .getElementById(
+                        "backToLessonsButton"
+                    )
+                    .addEventListener(
+                        "click",
+                        backToLessons
+                    );
+
+
+                /*
+                 * Enter submits an answer.
+                 * Shift + Enter creates a new line.
+                 */
+
+                document
+                    .getElementById(
+                        "studentAnswer"
+                    )
+                    .addEventListener(
+                        "keydown",
+                        function(event) {
+
+                            if (
+                                event.key === "Enter" &&
+                                !event.shiftKey
+                            ) {
+
+                                event.preventDefault();
+
+                                submitAnswer();
+
+                            }
+
+                        }
+                    );
+
+
+                /*
+                 * Load lessons from backend.
+                 */
+
+                await loadLessons();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

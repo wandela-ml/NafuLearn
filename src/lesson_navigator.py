@@ -12,17 +12,250 @@ EMBEDDINGS_PATH = (
     BASE_DIR
     / "data"
     / "embeddings"
-    / "lesson_01_embeddings.json"
+    / "all_embeddings_local.json"
 )
 
 
 # ============================================================
+# LOAD ALL EMBEDDINGS
+# ============================================================
+
+def load_all_embeddings():
+    """
+    Load all chunks from the combined embeddings file.
+    """
+
+    with open(
+        EMBEDDINGS_PATH,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        return json.load(file)
+
+
+# ============================================================
+# CURRICULUM NAVIGATION
+# ============================================================
+
+def get_curriculum_structure():
+    """
+    Build the curriculum hierarchy.
+
+    Structure:
+
+        Grade
+            ↓
+        Subject
+            ↓
+        Strand
+            ↓
+        Sub-strand
+            ↓
+        Lesson
+
+    All Grades (10, 11, 12) and all subjects are
+    created even when no lessons currently exist.
+
+    Existing lesson metadata is then used to populate
+    the appropriate subject, strand, sub-strand and lesson.
+    """
+
+    # =========================================================
+    # CURRICULUM SUBJECTS
+    # =========================================================
+
+    categories = {
+        "Core subjects": [
+            "English",
+            "Kiswahili",
+            "Mathematics",
+            "Community service"
+        ],
+
+        "STEM pathway subjects": [
+            "Biology",
+            "Physics",
+            "Chemistry",
+            "Agriculture",
+            "Computer studies",
+            "Home science",
+            "Aviation",
+            "Metal work",
+            "Electricity",
+            "Building and construction",
+            "Power mechanics",
+            "Wood work"
+        ],
+
+        "Social sciences": [
+            "History and Citizenship",
+            "Geography",
+            "Business studies",
+            "Religious Education"
+        ],
+
+        "Arts and Sports sciences": [
+            "Music and Dance",
+            "Sports and Recreation",
+            "Theatre and Film",
+            "Fine Arts"
+        ],
+
+        "Non-examinable": [
+            "Physical Education",
+            "Information and Communication technology"
+        ]
+    }
+
+    # =========================================================
+    # INITIALIZE CURRICULUM
+    # =========================================================
+
+    curriculum = {}
+
+    for grade in ["Grade 10", "Grade 11", "Grade 12"]:
+
+        curriculum[grade] = {}
+
+        for category, subjects in categories.items():
+
+            for subject in subjects:
+
+                curriculum[grade][subject] = {
+                    "category": category,
+                    "strands": {}
+                }
+
+    # =========================================================
+    # LOAD EXISTING LESSON DATA
+    # =========================================================
+
+    data = load_all_embeddings()
+
+    # Keep track of lessons already added.
+    seen_lessons = set()
+
+    for chunk in data:
+
+        metadata = chunk.get("metadata", {})
+
+        lesson_id = metadata.get("lesson_id")
+
+        if not lesson_id:
+
+            chunk_id = chunk.get("id", "")
+
+            if "_chunk_" in chunk_id:
+
+                lesson_id = chunk_id.rsplit("_chunk_", 1)[0]
+
+                if not lesson_id:
+                    continue
+
+        # Avoid adding the same lesson repeatedly.
+        if lesson_id in seen_lessons:
+            continue
+
+        # =====================================================
+        # GET METADATA
+        # =====================================================
+
+        grade = metadata.get("grade")
+        subject = metadata.get("subject")
+        strand = metadata.get("strand")
+        sub_strand = metadata.get("sub_strand")
+        lesson = metadata.get("lesson")
+
+        # Skip incomplete metadata.
+        if not all([
+            grade,
+            subject,
+            strand,
+            sub_strand,
+            lesson
+        ]):
+            continue
+
+        # =====================================================
+        # NORMALIZE GRADE
+        # =====================================================
+
+        if isinstance(grade, int):
+            grade = f"Grade {grade}"
+
+        elif isinstance(grade, str):
+
+            if grade.isdigit():
+                grade = f"Grade {grade}"
+
+        # =====================================================
+        # NORMALIZE SUBJECT
+        # =====================================================
+
+        subject_map = {
+            "Computer Studies": "Computer studies"
+        }
+
+        subject = subject_map.get(subject, subject)
+
+        # =====================================================
+        # MAKE SURE GRADE EXISTS
+        # =====================================================
+
+        if grade not in curriculum:
+            curriculum[grade] = {}
+
+        # =====================================================
+        # MAKE SURE SUBJECT EXISTS
+        # =====================================================
+
+        if subject not in curriculum[grade]:
+
+            curriculum[grade][subject] = {
+                "category": "Other",
+                "strands": {}
+            }
+
+        # =====================================================
+        # STRAND
+        # =====================================================
+
+        strands = curriculum[grade][subject]["strands"]
+
+        if strand not in strands:
+            strands[strand] = {}
+
+        # =====================================================
+        # SUB-STRAND
+        # =====================================================
+
+        if sub_strand not in strands[strand]:
+            strands[strand][sub_strand] = []
+
+        # =====================================================
+        # LESSON
+        # =====================================================
+
+        strands[strand][sub_strand].append({
+            "lesson": lesson,
+            "lesson_id": lesson_id,
+            "lesson_number": metadata.get("lesson_number")
+        })
+
+        seen_lessons.add(lesson_id)
+
+    return curriculum
+# ============================================================
 # LOAD LESSON DATA
 # ============================================================
 
-def load_lesson():
+def load_lesson(lesson_id):
     """
-    Load the lesson chunks from the embeddings JSON file.
+    Load chunks belonging to one specific lesson.
+
+    The embeddings file contains multiple lessons.
+    lesson_id is used to select the requested lesson.
     """
 
     with open(
@@ -33,7 +266,19 @@ def load_lesson():
 
         data = json.load(file)
 
-    return data
+    lesson_chunks = [
+        chunk
+        for chunk in data
+        if chunk["metadata"].get("lesson_id") == lesson_id
+        or chunk["id"].startswith(f"{lesson_id}_chunk_")
+    ]
+
+    if not lesson_chunks:
+        raise ValueError(
+            f"No chunks found for lesson ID: {lesson_id}"
+        )
+
+    return lesson_chunks
 
 
 # ============================================================
@@ -175,94 +420,197 @@ def display_section(section, position, total):
 
 
 # ============================================================
-# TEST LEARN MODE
+# DISPLAY CURRICULUM STRUCTURE
+# ============================================================
+
+def display_curriculum_structure(curriculum):
+    """
+    Display the curriculum hierarchy in a readable format.
+    """
+
+    print("\n" + "=" * 70)
+    print("NAFULEARN CURRICULUM STRUCTURE")
+    print("=" * 70)
+
+    for grade in sorted(
+        curriculum.keys(),
+        key=lambda value: int(value)
+    ):
+
+        print(f"\nGRADE {grade}")
+        print("-" * 70)
+
+        subjects = curriculum[grade]
+
+        for subject in subjects:
+
+            print(f"\n  SUBJECT: {subject}")
+
+            strands = subjects[subject]
+
+            for strand in strands:
+
+                print(f"    STRAND: {strand}")
+
+                sub_strands = strands[strand]
+
+                for sub_strand in sub_strands:
+
+                    print(
+                        f"      SUB-STRAND: {sub_strand}"
+                    )
+
+                    lessons = sub_strands[sub_strand]
+
+                    for lesson in lessons:
+
+                        print(
+                            f"        LESSON: "
+                            f"{lesson['lesson']}"
+                        )
+
+                        print(
+                            f"          ID: "
+                            f"{lesson['lesson_id']}"
+                        )
+
+    print("\n" + "=" * 70)
+
+
+# ============================================================
+# TEST LESSON NAVIGATOR
 # ============================================================
 
 if __name__ == "__main__":
 
+    # --------------------------------------------------------
+    # TEST CURRICULUM STRUCTURE
+    # --------------------------------------------------------
+
+    curriculum = get_curriculum_structure()
+
+    display_curriculum_structure(
+        curriculum
+    )
+
+    # --------------------------------------------------------
+    # LESSON 1
+    # --------------------------------------------------------
+
+    lesson_1_id = (
+        "grade10_computer_studies_evolution_01"
+    )
+
+    lesson_1_chunks = load_lesson(
+        lesson_1_id
+    )
+
+    lesson_1_sections = get_learning_sections(
+        lesson_1_chunks
+    )
+
+    print("\nLESSON 1")
+    print("-" * 70)
+
+    print(
+        f"Total chunks: {len(lesson_1_chunks)}"
+    )
+
+    print(
+        f"Learning sections: {len(lesson_1_sections)}"
+    )
+
+    for section in lesson_1_sections[:5]:
+
+        metadata = section["metadata"]
+
+        print(
+            f"{metadata['section_order']}. "
+            f"{metadata['section']}"
+        )
+
+    # --------------------------------------------------------
+    # LESSON 2
+    # --------------------------------------------------------
+
+    lesson_2_id = (
+        "grade10_computer_studies_architecture_01"
+    )
+
+    lesson_2_chunks = load_lesson(
+        lesson_2_id
+    )
+
+    lesson_2_sections = get_learning_sections(
+        lesson_2_chunks
+    )
+
+    print("\nLESSON 2")
+    print("-" * 70)
+
+    print(
+        f"Total chunks: {len(lesson_2_chunks)}"
+    )
+
+    print(
+        f"Learning sections: {len(lesson_2_sections)}"
+    )
+
+    for section in lesson_2_sections:
+
+        metadata = section["metadata"]
+
+        print(
+            f"{metadata['section_order']}. "
+            f"{metadata['section']}"
+        )
+
+    # --------------------------------------------------------
+    # TEST NAVIGATION
+    # --------------------------------------------------------
+
     print("\n" + "=" * 70)
-    print("NAFULEARN — LEARN MODE")
+    print("NAVIGATION TEST — LESSON 1")
     print("=" * 70)
-
-    # --------------------------------------------------------
-    # Load all chunks
-    # --------------------------------------------------------
-
-    chunks = load_lesson()
-
-    print(
-        f"\nTotal chunks loaded: {len(chunks)}"
-    )
-
-    # --------------------------------------------------------
-    # Get learning sections
-    # --------------------------------------------------------
-
-    sections = get_learning_sections(chunks)
-
-    print(
-        f"Learning sections available: {len(sections)}"
-    )
-
-    # --------------------------------------------------------
-    # Show first section
-    # --------------------------------------------------------
 
     current_position = 0
 
     current_section = get_section(
-        sections,
+        lesson_1_sections,
         current_position
     )
 
-    display_section(
-        current_section,
-        current_position,
-        len(sections)
-    )
+    print("\nCurrent:")
 
-    # --------------------------------------------------------
-    # Show next section
-    # --------------------------------------------------------
+    if current_section:
+        print(
+            current_section["metadata"]["section"]
+        )
 
     next_section = get_next_section(
-        sections,
+        lesson_1_sections,
         current_position
     )
 
-    print("\n" + "=" * 70)
-    print("NEXT SECTION")
-    print("=" * 70)
+    print("\nNext:")
 
     if next_section:
-
-        next_metadata = next_section["metadata"]
-
         print(
-            f"\n{next_metadata['section']}"
+            next_section["metadata"]["section"]
         )
 
-    # --------------------------------------------------------
-    # Show last learning section
-    # --------------------------------------------------------
-
-    last_position = len(sections) - 1
-
-    last_section = get_section(
-        sections,
-        last_position
+    previous_section = get_previous_section(
+        lesson_1_sections,
+        current_position
     )
 
-    print("\n" + "=" * 70)
-    print("LAST LEARNING SECTION")
-    print("=" * 70)
+    print("\nPrevious:")
 
-    if last_section:
-
-        last_metadata = last_section["metadata"]
-
+    if previous_section:
         print(
-            f"\n{last_metadata['section']}"
+            previous_section["metadata"]["section"]
         )
+    else:
+        print("None — already at the beginning.")
 
     print("\n" + "=" * 70)

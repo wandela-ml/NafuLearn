@@ -1,0 +1,362 @@
+[
+  {
+    "position": 0,
+    "explanation": "A computer is made up of components that work together to receive data, process it, store information and produce useful results. Computer architecture describes the design and functional behaviour of the system, while computer organisation describes how its physical components are arranged and work together.",
+    "question": "What is the difference between computer architecture and computer organisation?"
+  },
+  {
+    "position": 1,
+    "explanation": "Computer organisation describes how the physical components of a computer are arranged and how they work together. It includes processors, memory, registers, buses, input and output devices, control signals and interfaces.",
+    "question": "What does computer organisation focus on?"
+  },
+  {
+    "position": 2,
+    "explanation": "Computer architecture describes the design and functional behaviour of a computer system. It includes instruction sets, processor organisation, memory organisation, data representation and communication between components.",
+    "question": "What does computer architecture describe?"
+  },
+  {
+    "position": 3,
+    "explanation": "A computer has major functional units: input, processing, memory, storage and output. These units work together to receive information, process it, store it and produce useful results.",
+    "question": "Name the five major functional units of a computer."
+  },
+  {
+    "position": 4,
+    "explanation": "The input unit allows information and instructions to enter a computer. Examples include keyboards, mice, microphones, scanners, cameras and barcode readers. The input system converts information into signals the computer can process.",
+    "question": "What is the main purpose of the input unit?"
+  },
+  {
+    "position": 5,
+    "explanation": "When a learner enters 45 using a keyboard, the input system converts the key presses into digital information that the computer can understand and process.",
+    "question": "What happens to information when it enters a computer through a keyboard?"
+  },
+  {
+    "position": 6,
+    "explanation": "The processing unit carries out instructions and manipulates data. Its main processing component is the CPU, which performs calculations, logical comparisons, controls operations and executes instructions.",
+    "question": "What is the main job of the processing unit?"
+  },
+  {
+    "position": 7,
+    "explanation": "The CPU is the main processor of a computer. It contains the Arithmetic and Logic Unit, Control Unit and registers, which work together to execute instructions.",
+    "question": "What are the three major components of the CPU discussed in this lesson?"
+  },
+  {
+    "position": 8,
+    "explanation": "The Arithmetic and Logic Unit (ALU) performs arithmetic and logical operations. It can carry out calculations and comparisons, such as determining whether one value is greater than another or whether two values are equal.",
+    "question": "What types of operations does the ALU perform?"
+  },
+  {
+    "position": 9,
+    "explanation": "Arithmetic operations are mathematical calculations performed by the ALU. Examples include addition, subtraction, multiplication and division.",
+    "question": "Give two examples of arithmetic operations."
+  },
+  {
+    "position": 10,
+    "explanation": "Logical operations include comparing values and performing logical AND, OR and NOT operations. For example, the ALU can determine whether 50 is greater than 30 and produce a true or false result.",
+    "question": "What is the purpose of a logical operation?"
+  },
+  {
+    "position": 11,
+    "explanation": "The Control Unit coordinates computer activities. It retrieves and interprets instructions, sends control signals and controls the sequence of operations.",
+    "question": "What is the main role of the Control Unit?"
+  },
+  {
+    "position": 12,
+    "explanation": "Registers are very small and very fast storage locations inside the CPU. They temporarily hold information the processor is currently using, such as data, instructions, memory addresses and intermediate results.",
+    "question": "Why are registers important to the CPU?"
+  },
+  {
+    "position": 13,
+    "explanation": "When the CPU calculates 25 + 15, it may temporarily hold the values and intermediate results in registers while the ALU performs the calculation.",
+    "question": "Why might the CPU use registers while performing a calculation?"
+  },
+  {
+    "position": 14,
+    "explanation": "Memory holds data and instructions that the CPU needs while a computer is operating. RAM is common main memory and temporarily holds running programs, data and intermediate results. RAM is generally volatile.",
+    "question": "What is the purpose of RAM while a program is running?"
+  },
+  {
+    "position": 15,
+    "explanation": "When a learner opens a word-processing program, the program is loaded into RAM so the CPU can access the instructions and data needed to run it.",
+    "question": "Why is a running program loaded into RAM?"
+  },
+  {
+    "position": 16,
+    "explanation": "Storage provides longer-term storage for programs and data. Examples include hard drives, SSDs, memory cards and flash drives. Storage is generally non-volatile, so information remains after power is switched off.",
+    "question": "How is storage different from RAM?"
+  },
+  {
+    "position": 17,
+    "explanation": "A saved document can remain on an SSD or other storage device after the computer is switched off. This makes storage suitable for keeping files for later use.",
+    "question": "Why does a saved document remain available after the computer is switched off?"
+  },
+  {
+    "position": 18,
+    "explanation": "The output unit presents processed information to the user. Examples include monitors, printers, speakers, projectors and headphones.",
+    "question": "What is the purpose of the output unit?"
+  },
+  {
+    "position": 19,
+    "explanation": "The functional units do not operate independently. Input provides data, memory holds information being used, the CPU processes instructions and data, storage keeps information longer term, and output presents results.",
+    "question": "Why must the functional units of a computer work together?"
+  },
+  {
+    "position": 20,
+    "explanation": "The first step is entering data using an input device. For example, a learner can enter 20 and 30 into a calculator using a keyboard.",
+    "question": "What happens during the input step?"
+  },
+  {
+    "position": 21,
+    "explanation": "The entered information may be placed in memory while the program is running, making the data and instructions available to the CPU.",
+    "question": "Why can input data be placed in memory before processing?"
+  },
+  {
+    "position": 22,
+    "explanation": "The CPU retrieves the relevant instructions and data and processes them. The Control Unit coordinates the operations required to complete the task.",
+    "question": "What happens during the processing step?"
+  },
+  {
+    "position": 23,
+    "explanation": "When a calculation is required, the ALU performs the arithmetic operation, such as calculating 20 + 30 = 50.",
+    "question": "Which CPU component performs the calculation?"
+  },
+  {
+    "position": 24,
+    "explanation": "After processing, the result may be held temporarily and prepared for output. It can also be stored for later use.",
+    "question": "What can happen to a result after processing?"
+  },
+  {
+    "position": 25,
+    "explanation": "The processed result is presented through an output device. In the calculator example, a monitor can display 50.",
+    "question": "Give one example of an output device."
+  },
+  {
+    "position": 26,
+    "explanation": "A bus is a communication pathway used to transfer information between components of a computer system. Three important types are the data bus, address bus and control bus.",
+    "question": "What is a system bus?"
+  },
+  {
+    "position": 27,
+    "explanation": "The data bus carries the actual data being transferred between components such as the CPU, memory and input/output devices.",
+    "question": "What does the data bus carry?"
+  },
+  {
+    "position": 28,
+    "explanation": "The address bus carries information about where data should be read from or written to. An address identifies a particular memory location or destination.",
+    "question": "What information does the address bus carry?"
+  },
+  {
+    "position": 29,
+    "explanation": "The control bus carries control signals that coordinate activities between components, including operations such as read, write, interrupt and timing.",
+    "question": "What is the purpose of the control bus?"
+  },
+  {
+    "position": 30,
+    "explanation": "The von Neumann architecture is a foundational model in which programs and data can be stored in memory. The processor retrieves instructions from memory and executes them, while input, processing, memory and output operate as parts of one system.",
+    "question": "What important idea is associated with the von Neumann architecture?"
+  },
+  {
+    "position": 31,
+    "explanation": "The stored program concept means that program instructions and data can be stored in memory. The computer can retrieve, interpret and execute instructions, allowing the same hardware to run different programs.",
+    "question": "What is meant by the stored program concept?"
+  },
+  {
+    "position": 32,
+    "explanation": "The CPU repeatedly follows the fetch-decode-execute cycle when processing instructions. It fetches an instruction from memory, decodes what it means and executes the required operation.",
+    "question": "What are the three stages of the fetch-decode-execute cycle?"
+  },
+  {
+    "position": 33,
+    "explanation": "During fetch, the CPU retrieves the next instruction from memory and brings it into the CPU for processing.",
+    "question": "What happens during the fetch stage?"
+  },
+  {
+    "position": 34,
+    "explanation": "During decode, the Control Unit interprets the instruction and determines what operation is required, what data is involved and which components need to participate.",
+    "question": "What happens during the decode stage?"
+  },
+  {
+    "position": 35,
+    "explanation": "During execute, the CPU carries out the operation described by the instruction. This may involve calculation, comparison, moving data, storing information or communicating with an input/output device.",
+    "question": "What happens during the execute stage?"
+  },
+  {
+    "position": 36,
+    "explanation": "The instruction cycle can be represented as Fetch → Decode → Execute. After execution, the CPU continues with the next instruction, so the cycle repeats.",
+    "question": "Why does the fetch-decode-execute cycle repeat?"
+  },
+  {
+    "position": 37,
+    "explanation": "An instruction set is the collection of instructions that a processor is designed to understand and execute. Instructions can tell a processor to add, subtract, move, compare, load, store or branch.",
+    "question": "What is an instruction set?"
+  },
+  {
+    "position": 38,
+    "explanation": "RISC stands for Reduced Instruction Set Computer. RISC processors use a relatively small and simple set of instructions, with emphasis on efficient execution and simple operations.",
+    "question": "What does RISC stand for?"
+  },
+  {
+    "position": 39,
+    "explanation": "A RISC processor can perform a complex task by combining several simpler instructions rather than relying on one very complex instruction.",
+    "question": "How can a RISC processor perform a complex task?"
+  },
+  {
+    "position": 40,
+    "explanation": "CISC stands for Complex Instruction Set Computer. CISC processors use a larger and more varied instruction set, with some instructions capable of performing several operations.",
+    "question": "What does CISC stand for?"
+  },
+  {
+    "position": 41,
+    "explanation": "RISC generally uses a smaller and simpler instruction set, while CISC generally uses a larger and more complex instruction set. They represent different processor design approaches.",
+    "question": "What is one major difference between RISC and CISC?"
+  },
+  {
+    "position": 42,
+    "explanation": "An interface is a point or mechanism through which two systems or components communicate. Computer interfaces allow hardware components and external devices to exchange information.",
+    "question": "What is the purpose of a computer interface?"
+  },
+  {
+    "position": 43,
+    "explanation": "A port is a physical or logical connection used to connect a device to a computer or network. Examples include USB, HDMI, Ethernet and audio ports.",
+    "question": "What is a computer port used for?"
+  },
+  {
+    "position": 44,
+    "explanation": "A learner can connect a flash drive to a USB port. The port provides the connection through which the computer can communicate with the storage device.",
+    "question": "Give one device that can be connected through a USB port."
+  },
+  {
+    "position": 45,
+    "explanation": "Control signals tell computer components when and how to perform operations. They can indicate actions such as reading memory, writing data, responding to a device or beginning an operation.",
+    "question": "Why are control signals important?"
+  },
+  {
+    "position": 46,
+    "explanation": "Computing commonly discusses binary, decimal, octal and hexadecimal number systems. Binary is especially important because computers use digital signals.",
+    "question": "Name the four number systems discussed in this lesson."
+  },
+  {
+    "position": 47,
+    "explanation": "The decimal number system is base 10 and uses the digits 0 through 9. It is the number system people commonly use in everyday life.",
+    "question": "Why is decimal called a base-10 number system?"
+  },
+  {
+    "position": 48,
+    "explanation": "The binary number system is base 2 and uses only 0 and 1. Each binary digit is called a bit.",
+    "question": "What digits are used in the binary number system?"
+  },
+  {
+    "position": 49,
+    "explanation": "A decimal number can be converted to binary by repeatedly dividing by 2 and recording the remainders. The remainders are read from the last one back to the first.",
+    "question": "What method can be used to convert a decimal number to binary?"
+  },
+  {
+    "position": 50,
+    "explanation": "To convert 13 to binary, repeated division by 2 gives remainders 1, 0, 1 and 1. Reading them from bottom to top gives 1101, so 13₁₀ = 1101₂.",
+    "question": "What is 13 written in binary?"
+  },
+  {
+    "position": 51,
+    "explanation": "The octal number system is base 8 and uses the digits 0 through 7. Binary values can be grouped into sets of three bits to form octal digits.",
+    "question": "What base does the octal number system use?"
+  },
+  {
+    "position": 52,
+    "explanation": "The hexadecimal number system is base 16. It uses 0–9 and A–F, where A represents 10 through F representing 15.",
+    "question": "Which symbols are used in hexadecimal for values from 10 to 15?"
+  },
+  {
+    "position": 53,
+    "explanation": "Binary can be converted to hexadecimal by grouping binary digits into sets of four from the right. Each group of four bits corresponds to one hexadecimal digit.",
+    "question": "How many binary bits correspond to one hexadecimal digit?"
+  },
+  {
+    "position": 54,
+    "explanation": "The binary group 1010 has a decimal value of 10, which is represented by A in hexadecimal. Therefore 1010₂ = A₁₆.",
+    "question": "What hexadecimal digit represents binary 1010?"
+  },
+  {
+    "position": 55,
+    "explanation": "Digital electronic systems can represent two distinct states reliably. These can be represented as 0 and 1, making binary a natural way to represent digital information. Text, numbers, images, sound and instructions can all be encoded into digital patterns.",
+    "question": "Why is binary suitable for digital computers?"
+  },
+  {
+    "position": 56,
+    "explanation": "Computer components communicate by exchanging data, addresses and control information. Input devices provide data, memory holds information, the CPU processes it, and buses and interfaces provide communication pathways.",
+    "question": "What types of information do the main system buses carry?"
+  },
+  {
+    "position": 57,
+    "explanation": "Computer architecture can be seen in everyday Kenyan systems such as mobile money services, point-of-sale systems and school computer laboratories. These systems combine input, processing, storage, communication and output.",
+    "question": "Name one everyday Kenyan system that demonstrates computer components working together."
+  },
+  {
+    "position": 58,
+    "explanation": "A mobile money transaction involves input from a mobile device, processing by computer systems, communication with stored records or servers, and output such as a confirmation message.",
+    "question": "How does a mobile money transaction involve input, processing and output?"
+  },
+  {
+    "position": 59,
+    "explanation": "A point-of-sale system can receive input from a barcode scanner or touchscreen, process a transaction, store records and provide output such as a receipt.",
+    "question": "Give one example of input and one example of output in a point-of-sale system."
+  },
+  {
+    "position": 60,
+    "explanation": "A school computer laboratory demonstrates cooperation between components: keyboards and mice provide input, CPUs process instructions, RAM holds active programs, storage keeps files, monitors provide output and network interfaces enable communication.",
+    "question": "How does a school computer laboratory demonstrate cooperation between computer functional units?"
+  },
+  {
+    "position": 61,
+    "explanation": "Understanding the separate roles of computer components helps prevent misconceptions about the CPU, RAM, ALU, binary, RISC, ports and buses.",
+    "question": "Why is it important to understand the separate roles of computer components?"
+  },
+  {
+    "position": 62,
+    "explanation": "The CPU is an important processing component, but it is not the entire computer. A complete computer system also includes memory, storage, input, output and communication components.",
+    "question": "Why is the CPU not the entire computer?"
+  },
+  {
+    "position": 63,
+    "explanation": "RAM is temporary working memory and is generally volatile. Files that need to remain available after power is removed are normally kept on non-volatile storage devices.",
+    "question": "Why is RAM not considered permanent file storage?"
+  },
+  {
+    "position": 64,
+    "explanation": "The ALU performs arithmetic and logical operations. The Control Unit coordinates processor operations and sends control signals, so the ALU does not control the entire computer.",
+    "question": "What is the difference between the ALU and the Control Unit?"
+  },
+  {
+    "position": 65,
+    "explanation": "Binary is used to represent many kinds of digital information, including numbers, text, images, sound and instructions.",
+    "question": "Is binary used only for numbers?"
+  },
+  {
+    "position": 66,
+    "explanation": "RISC describes an instruction-set design approach based on relatively simple instructions. It does not mean that a processor is weak; performance depends on the overall processor and system design.",
+    "question": "What does RISC actually describe?"
+  },
+  {
+    "position": 67,
+    "explanation": "A port is a physical or logical connection point used to connect devices, while a bus is a communication pathway used to transfer information between components.",
+    "question": "What is one difference between a port and a bus?"
+  },
+  {
+    "position": 68,
+    "explanation": "Computer organisation describes how physical components are arranged and work together, while architecture describes design and functional behaviour. Key ideas include functional units, CPU components, memory, storage, buses, von Neumann architecture, the fetch-decode-execute cycle, RISC and CISC, interfaces, ports, control signals and number systems.",
+    "question": "Name three important ideas you learned in this lesson."
+  },
+  {
+    "position": 69,
+    "explanation": "Remember the main roles: input enters data, the CPU processes instructions, the ALU performs arithmetic and logic, the Control Unit coordinates operations, registers provide very fast temporary storage, memory holds information being used, storage keeps information longer term, and output presents results.",
+    "question": "What are the three stages of the fetch-decode-execute cycle?"
+  },
+  {
+    "position": 70,
+    "explanation": "Important terms include computer organisation, computer architecture, CPU, ALU, Control Unit, registers, RAM, storage, system bus, data bus, address bus, control bus, interface, port, instruction set, RISC, CISC, binary, octal and hexadecimal.",
+    "question": "Choose two key terms from this lesson and explain what they mean."
+  },
+  {
+    "position": 71,
+    "explanation": "Reflection helps you think about what you understand and what you still need to practise. Consider which components are easiest to explain, which ideas remain difficult, and how the concepts connect to computer systems you encounter in everyday life.",
+    "question": "Which concept from this lesson would you like to understand or practise better, and why?"
+  }
+]

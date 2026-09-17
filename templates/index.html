@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NafuLearn - Grade 10 Computer Studies</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='theme.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='index.css') }}"
+    >
+
+    <script
+        src="{{ url_for('static', filename='theme.js') }}"
+    ></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+
+<header class="site-header">
+
+    <div class="header-content">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="{{ url_for('home') }}"
+            class="header-logo"
+        >
+
+            <img
+                src="{{ url_for('static', filename='images/nafulearn-brand.png') }}"
+                alt="NafuLearn"
+            >
+
+        </a>
+
+
+        <!-- NAVIGATION LINKS -->
+
+        <nav class="main-navigation">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="nav-link"
+            >
+                Home
+            </a>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="nav-link"
+            >
+                Learn
+            </a>
+
+            <a
+                href="{{ url_for('ask') }}"
+                class="nav-link"
+            >
+                Ask
+            </a>
+
+            <a
+                href="{{ url_for('settings') }}"
+                class="nav-link"
+            >
+                Settings
+            </a>
+
+        </nav>
+
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
+<main>
+
+
+    <!-- =================================================
+         BRAND HERO
+         ================================================= -->
+
+    <section class="brand-hero">
+
+        <div class="brand-glow"></div>
+
+        <div class="hero-introduction">
+
+            <p class="hero-label">
+                YOUR AI LEARNING COMPANION
+            </p>
+
+            <h1>
+                Learn Computer Studies
+                <span>with your AI tutor.</span>
+            </h1>
+
+            <p class="hero-description">
+
+                Explore your lessons, understand important
+                computer concepts, test your knowledge, and
+                learn with guidance from NafuLearn.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{{ url_for('learn') }}"
+                    class="primary-button"
+                >
+                    Start Learning →
+                </a>
+
+
+                <a
+                    href="{{ url_for('ask') }}"
+                    class="secondary-button"
+                >
+                    Ask NafuLearn
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         FEATURES
+         ================================================= -->
+
+    <section class="features">
+
+        <div class="section-heading">
+
+            <p class="small-heading">
+                HOW NAFULEARN HELPS
+            </p>
+
+            <h2>
+                Learn at your own pace
+            </h2>
+
+            <p>
+                Build your understanding step by step.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Learn
+                </h3>
+
+                <p>
+                    Study Computer Studies concepts through
+                    structured lessons explained by your AI tutor.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Understand
+                </h3>
+
+                <p>
+                    Get clear explanations and examples to help
+                    you understand difficult concepts.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✍️
+                </div>
+
+                <h3>
+                    Practice
+                </h3>
+
+                <p>
+                    Answer questions and receive AI-powered
+                    feedback on your understanding.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CALL TO ACTION
+         ================================================= -->
+
+    <section class="cta">
+
+        <div class="cta-content">
+
+            <h2>
+                Ready to start learning?
+            </h2>
+
+            <p>
+                Begin your Grade 10 Computer Studies journey
+                with NafuLearn.
+            </p>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="primary-button"
+            >
+                Enter Learn Mode →
+            </a>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 NafuLearn • Grade 10 Computer Studies
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

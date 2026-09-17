@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ask NafuLearn</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='theme.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='ask.css') }}"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+    <script
+        src="{{ url_for('static', filename='theme.js') }}"
+    ></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     FULL-WIDTH HEADER
+     ===================================================== -->
+
+<header class="header">
+
+    <div class="header-content">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="ask-brand"
+        >
+
+            <img
+                src="{{ url_for('static', filename='images/nafulearn-brand.png') }}"
+                alt="NafuLearn"
+            >
+
+        </a>
+
+
+        <nav class="ask-navigation">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="ask-nav-link"
+            >
+                Home
+            </a>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="ask-nav-link"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('learn') }}"
+                class="ask-nav-link"
+            >
+                Learn
+            </a>
+
+            <a
+                href="{{ url_for('ask') }}"
+                class="ask-nav-link active"
+            >
+                Ask
+            </a>
+
+            <a
+                href="{{ url_for('settings') }}"
+                class="ask-nav-link"
+            >
+                Settings
+            </a>
+
+        </nav>
+
+    </div>
+
+
+    <div class="ask-page-description">
+
+        <p>
+            Grade 10 • Computer Studies
+        </p>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN ASK CONTENT
+     ===================================================== -->
+
+<main class="container">
+
+
+    <section class="ask-header">
+
+        <p class="small-heading">
+            AI LEARNING ASSISTANT
+        </p>
+
+        <h1>
+            Ask NafuLearn
+        </h1>
+
+        <p>
+            Have a question about your Computer Studies lesson?
+            Ask NafuLearn and get an explanation based on what
+            you are learning.
+        </p>
+
+    </section>
+
+
+
+    <section class="ask-card">
+
+
+        <label for="question">
+            Your question
+        </label>
+
+
+        <textarea
+            id="question"
+            placeholder="For example: What was the abacus used for?"
+            onkeydown="handleQuestionKey(event)"
+        ></textarea>
+
+
+        <button
+            id="ask-button"
+            onclick="askNafuLearn()"
+        >
+            Ask NafuLearn
+        </button>
+
+
+        <div
+            id="loading"
+            class="loading"
+            style="display: none;"
+        >
+            NafuLearn is thinking...
+        </div>
+
+
+    </section>
+
+
+
+    <section
+        id="answer-card"
+        class="answer-card"
+        style="display: none;"
+    >
+
+        <h2>
+            💡 NafuLearn's Answer
+        </h2>
+
+
+        <div
+            id="answer"
+            class="answer"
+        ></div>
+
+    </section>
+
+
+
+    <div class="back-link">
+
+        <a href="{{ url_for('learn') }}">
+            ← Back to Learn Mode
+        </a>
+
+    </div>
+
+
+</main>
+
+
+
+<script>
+
+    function handleQuestionKey(event) {
+
+        if (event.key === "Enter" && !event.shiftKey) {
+
+            event.preventDefault();
+
+            askNafuLearn();
+
+        }
+
+    }
+
+
+    async function askNafuLearn() {
+
+        const question =
+            document.getElementById("question").value.trim();
+
+        const button =
+            document.getElementById("ask-button");
+
+        const loading =
+            document.getElementById("loading");
+
+        const answerCard =
+            document.getElementById("answer-card");
+
+        const answerElement =
+            document.getElementById("answer");
+
+
+        if (!question) {
+
+            alert("Please enter a question first.");
+
+            return;
+        }
+
+
+        button.disabled = true;
+
+        loading.style.display = "block";
+
+        answerCard.style.display = "none";
+
+
+        try {
+
+            const response = await fetch(
+                "/api/ask",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        question: question
+                    })
+
+                }
+            );
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                alert(
+                    data.error ||
+                    "Unable to get an answer."
+                );
+
+                return;
+            }
+
+
+            answerElement.innerHTML =
+                marked.parse(data.answer);
+
+
+            answerCard.style.display =
+                "block";
+
+        }
+
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Something went wrong while contacting NafuLearn."
+            );
+
+        }
+
+
+        finally {
+
+            button.disabled = false;
+
+            loading.style.display = "none";
+
+        }
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

@@ -6,6 +6,8 @@ import os
 from google import genai
 from dotenv import load_dotenv
 
+from sentence_transformers import SentenceTransformer
+
 
 # ============================================================
 # PROJECT PATHS
@@ -19,7 +21,7 @@ EMBEDDINGS_PATH = (
     BASE_DIR
     / "data"
     / "embeddings"
-    / "lesson_01_embeddings.json"
+    / "all_embeddings_local.json"
 )
 
 
@@ -37,6 +39,10 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 
+local_model = SentenceTransformer(
+    "sentence-transformers/all-MiniLM-L6-v2"
+)
+
 # ============================================================
 # LOAD KNOWLEDGE BASE
 # ============================================================
@@ -53,15 +59,14 @@ def load_embeddings():
 # ============================================================
 
 def create_query_embedding(query):
-    """Convert a student's question into an embedding."""
+    """Convert a student's question into a local embedding."""
 
-    response = client.models.embed_content(
-        model="gemini-embedding-001",
-        contents=query
+    embedding = local_model.encode(
+        query,
+        normalize_embeddings=True
     )
 
-    return np.array(response.embeddings[0].values)
-
+    return np.array(embedding)
 
 # ============================================================
 # COSINE SIMILARITY
@@ -105,7 +110,7 @@ def search(query, top_k=3):
 
         # Don't use practice questions or answer keys
         # when answering normal student questions.
-        if content_type in ["practice", "answer_key"]:
+        if content_type in ["practice", "answer_key", "quiz"]:
             continue
 
         chunk_embedding = np.array(chunk["embedding"])
@@ -286,3 +291,4 @@ if __name__ == "__main__":
         )
 
     print("\n" + "=" * 60)
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    NafuLearn - {{ grade }} - {{ subject }}
+</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='theme.css') }}"
+>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='index.css') }}"
+>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='dashboard.css') }}"
+>
+
+<script
+    src="{{ url_for('static', filename='theme.js') }}"
+></script>
+
+
+</head>
+
+<body>
+
+<header class="site-header dashboard-header">
+
+
+<div class="header-content">
+
+    <a
+        href="{{ url_for('home') }}"
+        class="header-logo"
+    >
+
+        <img
+            src="{{ url_for('static', filename='images/nafulearn-brand.png') }}"
+            alt="NafuLearn"
+        >
+
+    </a>
+
+    <nav class="main-navigation">
+
+        <a
+            href="{{ url_for('home') }}"
+            class="nav-link"
+        >
+            Home
+        </a>
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="{{ url_for('learn') }}"
+            class="nav-link"
+        >
+            Learn
+        </a>
+
+        <a
+            href="{{ url_for('ask') }}"
+            class="nav-link"
+        >
+            Ask
+        </a>
+
+        <a
+            href="{{ url_for('settings') }}"
+            class="nav-link"
+        >
+            Settings
+        </a>
+
+    </nav>
+
+</div>
+
+
+</header>
+
+<main class="dashboard-page">
+
+
+<section class="dashboard-introduction">
+
+    <p class="dashboard-label">
+        {{ grade }} · {{ category }}
+    </p>
+
+    <h1>
+        {{ subject }}
+    </h1>
+
+    <p>
+        Choose a strand to explore.
+    </p>
+
+</section>
+
+
+<section class="grade-section">
+
+    <div class="grade-grid">
+
+        {% for strand, lessons in strands.items() %}
+
+        <a href="{{ url_for(
+            'strand_dashboard',
+            grade=grade.replace('Grade ', ''),
+            category=category,
+            subject=subject,
+            strand=strand
+        ) }}"
+        class="grade-card"
+        >
+
+            <div class="grade-content">
+
+                <h2>
+                    {{ strand }}
+                </h2>
+
+                <p>
+                    {{ lessons|length }} lesson{% if lessons|length != 1 %}s{% endif %}
+                </p>
+
+            </div>
+
+            <div class="grade-arrow">
+                →
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+</main>
+
+<footer class="footer">
+
+
+<p>
+    © 2026 NafuLearn
+</p>
+
+
+</footer>
+
+</body>
+
+</html>
