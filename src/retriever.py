@@ -8,6 +8,11 @@ from dotenv import load_dotenv
 
 from sentence_transformers import SentenceTransformer
 
+import torch
+
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
+
 
 # ============================================================
 # PROJECT PATHS
