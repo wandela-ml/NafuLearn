@@ -39,9 +39,31 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 
-local_model = SentenceTransformer(
-    "sentence-transformers/all-MiniLM-L6-v2"
-)
+# ============================================================
+# LOCAL EMBEDDING MODEL
+# ============================================================
+
+# The model is deliberately NOT loaded at startup.
+# It will only be loaded when Ask Mode needs it.
+
+local_model = None
+
+
+def get_local_model():
+    """
+    Load the local embedding model only when it is needed.
+    This reduces memory usage during application startup.
+    """
+
+    global local_model
+
+    if local_model is None:
+        local_model = SentenceTransformer(
+            "sentence-transformers/all-MiniLM-L6-v2"
+        )
+
+    return local_model
+
 
 # ============================================================
 # LOAD KNOWLEDGE BASE
@@ -61,12 +83,15 @@ def load_embeddings():
 def create_query_embedding(query):
     """Convert a student's question into a local embedding."""
 
-    embedding = local_model.encode(
+    model = get_local_model()
+
+    embedding = model.encode(
         query,
         normalize_embeddings=True
     )
 
     return np.array(embedding)
+
 
 # ============================================================
 # COSINE SIMILARITY
@@ -291,4 +316,3 @@ if __name__ == "__main__":
         )
 
     print("\n" + "=" * 60)
-
